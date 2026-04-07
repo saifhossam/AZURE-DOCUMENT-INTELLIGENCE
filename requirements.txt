@@ -1,0 +1,11 @@
+streamlit
+azure-ai-formrecognizer
+azure-core
+azure-storage-blob
+python-dotenv
+pandas
+Pillow
+requests
+openpyxl
+plotly
+httpx
