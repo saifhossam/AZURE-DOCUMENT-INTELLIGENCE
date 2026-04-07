@@ -8,7 +8,6 @@ from models.layout_model import LayoutModel
 from models.general_doc_model import GeneralDocModel
 from models.invoice_model import InvoiceModel
 from models.receipt_model import ReceiptModel
-from models.custom_model import CustomModel
 
 __all__ = [
     "BaseModel",
@@ -18,6 +17,5 @@ __all__ = [
     "LayoutModel",
     "GeneralDocModel",
     "InvoiceModel",
-    "ReceiptModel",
-    "CustomModel",
+    "ReceiptModel"
 ]

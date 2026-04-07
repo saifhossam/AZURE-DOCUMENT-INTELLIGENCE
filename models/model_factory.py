@@ -88,30 +88,15 @@ class ModelFactory:
             })
         return models
     
-    def list_custom_models(self) -> List[Dict[str, str]]:
-        """
-        Get list of registered custom models.
-        
-        Returns:
-            List of dicts with model_id and display_name
-        """
-        custom_models = []
-        for model_id, model in self._models.items():
-            if model.config.category == "custom":
-                custom_models.append({
-                    "model_id": model_id,
-                    "display_name": model.config.display_name,
-                })
-        return custom_models
-    
+   
     def list_all_models(self) -> List[Dict[str, str]]:
         """
-        Get list of all available models (prebuilt + custom).
+        Get list of all available models (prebuilt).
         
         Returns:
             List of dicts with model_id and display_name
         """
-        return self.list_prebuilt_models() + self.list_custom_models()
+        return self.list_prebuilt_models()
     
     def get_model_config(self, model_id: str) -> Optional[ModelConfig]:
         """

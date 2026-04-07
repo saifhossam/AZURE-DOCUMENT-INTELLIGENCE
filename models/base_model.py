@@ -14,7 +14,7 @@ class ModelConfig:
     model_id: str
     display_name: str
     description: str
-    category: str  # 'prebuilt' or 'custom'
+    category: str  # 'prebuilt'
     version: str = "1.0"
     supported_formats: List[str] = None
     
@@ -45,21 +45,12 @@ class BaseModel(ABC):
     """
     Abstract base class for all document analysis models.
     
-    All models (prebuilt or custom) must inherit from this and implement:
+    All models (prebuilt) must inherit from this and implement:
     - analyze(file_bytes, config)
     - validate_input(file_bytes, filename)
     - get_config()
     """
-    
-    def __init__(self, config: ModelConfig):
-        """
-        Initialize model with configuration.
-        
-        Args:
-            config: ModelConfig instance with model metadata
-        """
-        self.config = config
-        self.is_custom = config.category == "custom"
+
     
     @abstractmethod
     def analyze(self, file_bytes: bytes, filename: str) -> AnalysisResult:
@@ -101,7 +92,6 @@ class BaseModel(ABC):
             "description": self.config.description,
             "category": self.config.category,
             "version": self.config.version,
-            "is_custom": self.is_custom,
             "supported_formats": self.config.supported_formats,
         }
     
