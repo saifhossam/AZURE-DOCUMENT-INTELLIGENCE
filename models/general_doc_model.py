@@ -78,22 +78,4 @@ class GeneralDocModel(BaseModel):
                 error=str(e),
                 processing_time_ms=processing_time,
             )
-    
-    def validate_input(self, file_bytes: bytes, filename: str) -> tuple[bool, str]:
-        """Validate input file for general document model."""
-        # Check empty
-        valid, msg = self._validate_file_not_empty(file_bytes)
-        if not valid:
-            return valid, msg
-        
-        # Check extension
-        valid, msg = self._validate_file_extension(filename)
-        if not valid:
-            return valid, msg
-        
-        # Check size
-        valid, msg = self._validate_file_size(file_bytes)
-        if not valid:
-            return valid, msg
-        
-        return True, ""
+

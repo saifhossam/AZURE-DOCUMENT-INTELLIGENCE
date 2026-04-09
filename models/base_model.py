@@ -46,11 +46,15 @@ class BaseModel(ABC):
     Abstract base class for all document analysis models.
     
     All models (prebuilt) must inherit from this and implement:
-    - analyze(file_bytes, config)
-    - validate_input(file_bytes, filename)
+    - analyze(file_bytes, filename)
     - get_config()
+    
+    Shared validation logic is provided by validate_input() (non-abstract).
     """
-
+    
+    def __init__(self, config: ModelConfig):
+        """Initialize model with configuration."""
+        self.config = config
     
     @abstractmethod
     def analyze(self, file_bytes: bytes, filename: str) -> AnalysisResult:
@@ -66,10 +70,10 @@ class BaseModel(ABC):
         """
         pass
     
-    @abstractmethod
     def validate_input(self, file_bytes: bytes, filename: str) -> tuple[bool, str]:
         """
         Validate if the input is suitable for this model.
+        Shared implementation for all models - checks size, format, and emptiness.
         
         Args:
             file_bytes: Raw file bytes
@@ -78,7 +82,22 @@ class BaseModel(ABC):
         Returns:
             (is_valid, error_message)
         """
-        pass
+        # Check empty
+        valid, msg = self._validate_file_not_empty(file_bytes)
+        if not valid:
+            return valid, msg
+        
+        # Check extension
+        valid, msg = self._validate_file_extension(filename)
+        if not valid:
+            return valid, msg
+        
+        # Check size
+        valid, msg = self._validate_file_size(file_bytes)
+        if not valid:
+            return valid, msg
+        
+        return True, ""
     
     def get_config(self) -> ModelConfig:
         """Return model configuration."""
