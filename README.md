@@ -185,4 +185,3 @@ File limits are set in `config.py`:
 SUPPORTED_EXTENSIONS = [".pdf", ".png", ".jpg", ".jpeg", ".tiff", ".bmp"]
 MAX_FILE_SIZE_MB = 50
 ```
-MIT
